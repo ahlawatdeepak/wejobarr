@@ -14,6 +14,8 @@
       <div><a href="applied.html">Applied Jobs</a></div>
       <div><a href="bookmark.html">Bookmarks</a></div>
     </div>
+    
+
     <main>
       <table>
         <thead>
@@ -34,6 +36,8 @@
     var bookmarkarr=JSON.parse(localStorage.getItem("bookmarks"))
     // console.log(bookmarkarr)
     displaydata(bookmarkarr);
+
+    
 
     function displaydata(bookmarkarr){
       bookmarkarr.forEach(function(elem,index){

@@ -15,6 +15,27 @@
       <div><a href="bookmark.html">Bookmarks</a></div>
     </div>
 
+    <select  id="sortname" onchange="handlenamesort()">
+      <option >Sort by Name</option>
+      <option value="asc">Ascending</option>
+      <option value="dsc">Descending</option>
+    </select>
+
+    <select  id="sortsalary" onchange="handleSalarysort()">
+      <option >Sort by Salary</option>
+      <option value="HTL">High to Low</option>
+      <option value="LTH">Low to High</option>
+    </select>
+
+    <select  id="filterrole" onchange="handlefilter()">
+      <option >Filter Category</option>
+      <option value="FSD">FSD</option>
+      <option value="Frontend">FRONTEND</option>
+      <option value="Backend">BACKEND</option>
+    </select>
+
+
+
     <main>
       <table>
         <thead>
@@ -39,9 +60,72 @@
      
    var bookmarkarr=JSON.parse(localStorage.getItem("bookmarks"))||[]
 
-    displaydata(jobArr)
+    displaydata(jobArr);
+
+    function handlefilter(){
+      var selected=document.querySelector("#filterrole").value;
+      var filterdlist=jobArr.filter(function(elem){
+        return elem.prole==selected;
+      })
+        displaydata(filterdlist)
+    }
+
+    function handleSalarysort(){
+      var selected=document.querySelector("#sortsalary").value;
+      if(selected=="HTL"){
+        jobArr.sort(function(a,b){
+          return b.psalary - a.psalary;
+        });
+        displaydata(jobArr)
+      }
+        if(selected=="LTH"){
+        jobArr.sort(function(a,b){
+          return a.psalary - b.psalary;
+        });
+        displaydata(jobArr)
+      }
+      
+    }
+
+    function handlenamesort(){
+      var selected=document.querySelector("#sortname").value;
+      
+      if(selected == "asc"){
+        jobArr.sort(function(a,b){
+          var x=a.pname.toUpperCase();
+          var y=b.pname.toUpperCase();
+          if(x > y){
+            return 1;
+          }
+          if(x < y){
+            return -1;
+          }
+          return 0;
+        })
+        console.log(jobArr)
+        displaydata(jobArr)
+      }
+
+      if(selected=="dsc"){
+        jobArr.sort(function(a,b){
+          var x=a.pname.toUpperCase();
+          var y=b.pname.toUpperCase();
+          if(x > y){
+            return -1;
+          }
+          if(x < y){
+            return 1;
+          }
+          return 0;
+        })
+        console.log(jobArr)
+        displaydata(jobArr)
+      }
+    }
+    
 
     function displaydata(data){
+      document.querySelector("tbody").innerHTML=""
 
       data.forEach(function(elem){
 
